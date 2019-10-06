@@ -40,9 +40,20 @@
           (assoc :flash {:msg "TODOを正常に更新しました"})
           res/html))))
 
+(defn todo-delete [{:as req :keys [params]}]
+  (if-let [todo (todo/find-first-todo (Long/parseLong (:todo-id params)))]
+    (-> (view/todo-delete-view req todo)
+        res/response
+        res/html)))
+
+(defn todo-delete-post [{:as req :keys [params]}]
+  (let [todo-id (Long/parseLong (:todo-id params))]
+    (if (pos? (first (todo/delete-todo todo-id)))
+      (-> (res/redirect "/todo")
+          (assoc :flash {:msg "TODO を正常に削除しました"})
+          res/html))))
+
 (defn todo-search [req] "TODO search")
-(defn todo-delete [req] "TODO delete")
-(defn todo-delete-post [req] "TODO delete post")
 
 (defroutes todo-routes
   (context "/todo" _
