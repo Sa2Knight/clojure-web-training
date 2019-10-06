@@ -2,6 +2,8 @@
   (:require [compojure.core :refer [routes]]
             [ring.adapter.jetty :as server]
             [ring.middleware.resource :as resource]
+            [ring.middleware.keyword-params :as keyword-params]
+            [ring.middleware.params :as params]
             [todo-clj.handler.main :refer [main-routes]]
             [todo-clj.handler.todo :refer [todo-routes]]
             [todo-clj.middleware :refer [wrap-dev]]
@@ -21,7 +23,9 @@
        todo-routes
        main-routes)
       (wrap wrap-dev (:dev env))
-      (wrap resource/wrap-resource "public")))
+      (wrap resource/wrap-resource "public")
+      (wrap keyword-params/wrap-keyword-params true)
+      (wrap params/wrap-params true)))
 
 (defn start-server []
   (when-not @server

@@ -17,3 +17,8 @@
          [:input {:name :title :placeholder "TODO を入力してください"}]
          [:button.bg-blue "追加する"])]
        (layout/common req)))
+
+(defn todo-complete-view [req]
+  (->> [:section.card
+        [:h2 "TODOを追加しました"]]
+       (layout/common req)))
