@@ -10,7 +10,11 @@
         res/response
         res/html)))
 
-(defn todo-new [req] "TODO new")
+(defn todo-new [req]
+  (-> (view/todo-new-view req)
+      res/response
+      res/html))
+
 (defn todo-new-post [req] "TODO new post")
 (defn todo-search [req] "TODO search")
 (defn todo-show [req] "TODO show")
