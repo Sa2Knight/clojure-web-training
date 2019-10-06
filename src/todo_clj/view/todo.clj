@@ -9,6 +9,11 @@
              [:li title])])
       (layout/common req)))
 
+(defn todo-show-view [req todo]
+  (->> [:section.card
+        [:h2 (:title todo)]]
+       (layout/common req)))
+
 (defn todo-new-view [req]
   (->> [:section.card
         [:h2 "TODO 追加"]

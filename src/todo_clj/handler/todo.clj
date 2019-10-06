@@ -10,6 +10,12 @@
         res/response
         res/html)))
 
+(defn todo-show [{:as req :keys [params]}]
+  (if-let [todo (todo/find-first-todo (Long/parseLong (:todo-id params)))]
+    (-> (view/todo-show-view req todo)
+        res/response
+        res/html)))
+
 (defn todo-new [req]
   (-> (view/todo-new-view req)
       res/response
@@ -35,7 +41,6 @@
           res/html))))
 
 (defn todo-search [req] "TODO search")
-(defn todo-show [req] "TODO show")
 (defn todo-delete [req] "TODO delete")
 (defn todo-delete-post [req] "TODO delete post")
 
