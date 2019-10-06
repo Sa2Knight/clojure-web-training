@@ -22,9 +22,9 @@
       res/html))
 
 (defn todo-new-post [{:as req :keys [params]}]
-  (when (todo/save-todo (:title params))
-    (-> (view/todo-complete-view req)
-        res/response
+  (if-let [todo (first (todo/save-todo (:title params)))]
+    (-> (res/redirect (str "/todo/" (:id todo)))
+        (assoc :flash {:msg "TODO を正常に追加しました。"})
         res/html)))
 
 (defn todo-edit [{:as req :keys [params]}]
