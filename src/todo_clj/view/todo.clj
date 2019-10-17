@@ -8,8 +8,8 @@
           [:div.alert.alert-success [:strong msg]])
         [:h2 "TODO 一覧"]
         [:ul
-         (for [{:keys [title]} todo-list]
-           [:li title])]]
+         (for [{:keys [id title]} todo-list]
+           [:li [:a {:href (str "/todo/" id)} title]])]]
        (layout/common req)))
 
 (defn todo-show-view [req todo]
